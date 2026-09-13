@@ -11,8 +11,8 @@
 <main>
 <section class="hero"><div><div class="eyebrow">Installable security PWA</div><h1>Check files before you trust them.</h1><p>Select downloaded files for a private, browser-based risk check. Files never leave your device.</p><div class="buttons"><button class="btn" id="install" hidden>Install app</button><button class="btn alt" id="choose">Choose files</button></div></div><div class="card"><div class="shield">🛡️</div><div class="status">Protection demo ready</div><p id="offline">Checking offline support…</p></div></section>
 <section class="grid">
-<article class="card wide"><h2>Local file scan</h2><p>Checks filenames, extensions, file signatures, size, and creates a SHA-256 fingerprint. It does not upload or execute files.</p><div class="drop" id="drop"><strong>Drop files here</strong><p>or click to choose files</p><input id="files" type="file" multiple></div><div class="results" id="results"></div></article>
-<article class="card"><h2>What it detects</h2><p>Risky executable types, hidden double extensions, suspicious script formats, misleading names, and mismatched file signatures.</p></article>
+<article class="card wide"><h2>Local file scan</h2><p>Checks filenames, extensions, Windows PE headers, architecture, entropy, size, and creates a SHA-256 fingerprint. It does not upload or execute files.</p><div class="drop" id="drop"><strong>Drop files here</strong><p>or click to choose files</p><input id="files" type="file" multiple></div><div class="results" id="results"></div></article>
+<article class="card"><h2>What it detects</h2><p>Risky executable types, hidden double extensions, malformed Windows PE files, unusual section counts, high entropy, misleading names, and mismatched signatures.</p></article>
 <article class="card"><h2>Privacy</h2><p>Scanning uses browser APIs on your device. The app has no analytics, account, file uploads, or remote database.</p></article>
 <article class="card wide"><h2>Browser limitations</h2><div class="facts"><div class="fact"><strong>No background device scan</strong><p>Browsers cannot inspect files you do not select.</p></div><div class="fact"><strong>No automatic removal</strong><p>The app cannot quarantine or delete system files.</p></div><div class="fact"><strong>No guaranteed verdict</strong><p>Unknown malware may look harmless to basic checks.</p></div></div></article>
 </section><div class="notice"><strong>Demo, not a full antivirus:</strong> If a file is marked “No obvious risk,” that does not prove it is safe. Keep your operating system and trusted antivirus protection enabled.</div>
@@ -26,15 +26,33 @@ drop.addEventListener('drop',e=>scan([...e.dataTransfer.files]));input.addEventL
 const dangerous=new Set(['exe','msi','bat','cmd','com','scr','ps1','vbs','js','jse','wsf','jar','reg','hta','apk','dmg','pkg']);
 const decoys=/invoice|receipt|password|urgent|payment|photo|document|update|crack|free|winner/i;
 const fmt=n=>n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(1)+' MB';
-async function scan(files){results.innerHTML='';for(const file of files){const bits=file.name.toLowerCase().split('.'),ext=bits.at(-1)||'',reasons=[];let level='safe',label='No obvious risk';
-if(dangerous.has(ext)){level='danger';label='High risk';reasons.push('Executable or script file');}
-if(bits.length>2&&dangerous.has(ext)){level='danger';label='High risk';reasons.push('Double extension may disguise the real type');}
-if(decoys.test(file.name)&&dangerous.has(ext))reasons.push('Filename uses a commonly misleading word');
-if(file.size===0){level=level==='danger'?level:'warn';label=level==='danger'?label:'Needs review';reasons.push('File is empty');}
-const first=new Uint8Array(await file.slice(0,8).arrayBuffer());if(first[0]===77&&first[1]===90&&!['exe','dll','scr','com'].includes(ext)){level='danger';label='High risk';reasons.push('Windows executable signature conflicts with extension');}
-const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',await file.arrayBuffer()))].map(b=>b.toString(16).padStart(2,'0')).join('');
-if(!reasons.length)reasons.push('No basic warning signs detected');
-const row=document.createElement('div');row.className='file';row.innerHTML='<div><strong></strong><small></small><small class="hash"></small></div><span class="tag '+level+'">'+label+'</span>';row.querySelector('strong').textContent=file.name;row.querySelectorAll('small')[0].textContent=fmt(file.size)+' • '+reasons.join(' • ');row.querySelector('.hash').textContent='SHA-256: '+hash;results.append(row);}}
+function entropy(bytes){const counts=new Uint32Array(256);for(const b of bytes)counts[b]++;let value=0;for(const n of counts)if(n){const p=n/bytes.length;value-=p*Math.log2(p)}return value}
+function inspectPE(bytes){
+ const notes=[];if(bytes.length<64||bytes[0]!==0x4d||bytes[1]!==0x5a)return {valid:false,notes:['Missing or invalid MZ header']};
+ const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength),pe=view.getUint32(0x3c,true);
+ if(pe<0x40||pe+24>bytes.length||view.getUint32(pe,true)!==0x00004550)return {valid:false,notes:['Missing or invalid PE header']};
+ const machine=view.getUint16(pe+4,true),sections=view.getUint16(pe+6,true),stamp=view.getUint32(pe+8,true);
+ const arch={0x14c:'32-bit x86',0x8664:'64-bit x64',0xaa64:'64-bit ARM'}[machine]||'unknown architecture';
+ notes.push('Valid Windows PE • '+arch+' • '+sections+' section'+(sections===1?'':'s'));
+ if(sections===0||sections>12)notes.push('Unusual PE section count');
+ const year=new Date(stamp*1000).getUTCFullYear();if(stamp&&year>new Date().getUTCFullYear()+1)notes.push('Future-dated compile timestamp');
+ return {valid:true,notes};
+}
+async function scan(files){results.innerHTML='';for(const file of files){
+ const bits=file.name.toLowerCase().split('.'),ext=bits.at(-1)||'',reasons=[];let level='safe',label='No obvious risk';
+ const buffer=await file.arrayBuffer(),bytes=new Uint8Array(buffer),looksPE=bytes[0]===0x4d&&bytes[1]===0x5a;
+ if(dangerous.has(ext)){level='warn';label='Needs review';reasons.push('Executable or script type—verify its publisher before opening');}
+ if(bits.length>2&&dangerous.has(ext)){level='danger';label='High risk';reasons.push('Double extension may disguise the real type');}
+ if(decoys.test(file.name)&&dangerous.has(ext)){level='danger';label='High risk';reasons.push('Executable filename uses a commonly misleading word');}
+ if(file.size===0){level='danger';label='Invalid file';reasons.push('File is empty');}
+ if(looksPE&&!['exe','dll','scr','com'].includes(ext)){level='danger';label='High risk';reasons.push('Windows executable signature conflicts with extension');}
+ if(ext==='exe'||looksPE){const pe=inspectPE(bytes);reasons.push(...pe.notes);if(!pe.valid){level='danger';label='Malformed executable';}
+   if(bytes.length){const sample=bytes.subarray(0,Math.min(bytes.length,4*1024*1024)),e=entropy(sample);reasons.push('Entropy '+e.toFixed(2)+'/8');if(e>7.45){level='warn';label='Needs review';reasons.push('Very high entropy may indicate packing or compression');}}
+ }
+ const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',buffer))].map(b=>b.toString(16).padStart(2,'0')).join('');
+ if(!reasons.length)reasons.push('No basic warning signs detected');
+ const row=document.createElement('div');row.className='file';row.innerHTML='<div><strong></strong><small></small><small class="hash"></small></div><span class="tag '+level+'">'+label+'</span>';row.querySelector('strong').textContent=file.name;row.querySelectorAll('small')[0].textContent=fmt(file.size)+' • '+reasons.join(' • ');row.querySelector('.hash').textContent='SHA-256: '+hash;results.append(row);
+}}
 let prompt;const install=document.querySelector('#install');addEventListener('beforeinstallprompt',e=>{e.preventDefault();prompt=e;install.hidden=false});install.onclick=async()=>{if(prompt){await prompt.prompt();prompt=null;install.hidden=true}};
 if('serviceWorker'in navigator){navigator.serviceWorker.register('./sw.js').then(()=>document.querySelector('#offline').textContent='Installed files can be scanned offline.').catch(()=>document.querySelector('#offline').textContent='Offline mode unavailable on this host.')}
 </script></body></html>
