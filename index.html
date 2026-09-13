@@ -1,115 +1,40 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="GitHub Protect — a private, browser-based security awareness dashboard.">
-  <meta name="color-scheme" content="dark">
-  <title>GitHub Protect</title>
-  <style>
-    :root{--bg:#070b14;--panel:#0e1525;--panel2:#121c30;--text:#eef4ff;--muted:#9aabc4;--line:#263550;--blue:#58a6ff;--green:#3ddc97;--yellow:#ffd166;--red:#ff667c;--radius:18px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 80% -10%,#173a67 0,transparent 35%),var(--bg);color:var(--text)}
-    button,input{font:inherit}button{cursor:pointer}.shell{max-width:1120px;margin:auto;padding:0 22px 60px}
-    header{display:flex;justify-content:space-between;align-items:center;padding:24px 0}.brand{display:flex;gap:12px;align-items:center;font-weight:800;font-size:18px}.logo{display:grid;place-items:center;width:40px;height:40px;border-radius:13px;background:linear-gradient(145deg,var(--blue),#7968ff);box-shadow:0 0 28px #58a6ff55}.privacy{color:var(--green);font-size:13px}
-    .hero{padding:64px 0 42px;display:grid;grid-template-columns:1.3fr .7fr;gap:34px;align-items:center}.eyebrow{color:var(--blue);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}.hero h1{font-size:clamp(42px,7vw,76px);line-height:.95;letter-spacing:-.055em;margin:14px 0 20px}.hero p{color:var(--muted);font-size:18px;max-width:680px}.hero-card{padding:25px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(150deg,#14223a,#0d1422);box-shadow:0 24px 80px #0008}.score{font-size:64px;font-weight:900;color:var(--green)}.score-label{color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:0 14px 40px #0004}.wide{grid-column:1/-1}.card h2{margin:0 0 6px;font-size:21px}.sub{color:var(--muted);margin:0 0 18px}
-    label{display:block;color:#c9d7eb;font-weight:700;margin-bottom:8px}.field{display:flex;gap:9px}input{width:100%;min-width:0;border:1px solid var(--line);border-radius:12px;background:#080d18;color:var(--text);padding:13px 14px;outline:0}input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #58a6ff22}.btn{border:0;border-radius:12px;padding:12px 16px;background:var(--blue);color:#06101d;font-weight:900}.btn.secondary{color:var(--text);background:#202e46;border:1px solid #344763}
-    .meter{height:9px;background:#050912;border-radius:99px;margin:15px 0 10px;overflow:hidden}.meter span{display:block;width:0;height:100%;background:var(--red);transition:.25s}.result{min-height:24px;color:var(--muted)}.result strong{color:var(--text)}
-    .checks{display:grid;gap:10px}.check{display:flex;align-items:center;gap:12px;background:#0a101d;border:1px solid var(--line);padding:13px;border-radius:12px}.check input{width:18px;height:18px;accent-color:var(--green)}.check span{flex:1}.badge{font-size:12px;padding:3px 8px;border-radius:99px;background:#1a2940;color:#b9cce8}
-    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.step{padding:16px;background:#09101d;border:1px solid var(--line);border-radius:13px}.step b{display:block;color:var(--blue);margin-bottom:5px}.notice{margin-top:28px;border-left:4px solid var(--yellow);background:#211b0d;color:#e8dcb8;padding:16px 18px;border-radius:10px}footer{text-align:center;color:var(--muted);padding-top:36px}
-    @media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:30px}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.steps{grid-template-columns:1fr 1fr}.privacy{display:none}}@media(max-width:430px){.steps{grid-template-columns:1fr}.field{flex-direction:column}}
-  </style>
-</head>
-<body>
-  <div class="shell">
-    <header><div class="brand"><span class="logo" aria-hidden="true">🛡️</span>GitHub Protect</div><div class="privacy">● Private — runs in your browser</div></header>
-    <main>
-      <section class="hero">
-        <div><div class="eyebrow">Personal security dashboard</div><h1>Make hackers’ jobs harder.</h1><p>Check risky habits, inspect suspicious links, and strengthen account security. Everything on this page stays on your device.</p></div>
-        <div class="hero-card"><div class="score" id="score">0%</div><div class="score-label">Security checklist completed</div><div class="meter"><span id="scoreBar"></span></div><small id="scoreTip">Complete the checklist below.</small></div>
-      </section>
-
-      <section class="grid">
-        <article class="card">
-          <h2>Password strength</h2><p class="sub">Checked locally. Your password is never saved or sent.</p>
-          <label for="password">Test a sample password</label>
-          <div class="field"><input id="password" type="password" autocomplete="off" placeholder="Enter a password"><button class="btn secondary" id="showPassword" type="button">Show</button></div>
-          <div class="meter"><span id="passwordBar"></span></div><div class="result" id="passwordResult">Use a unique passphrase with 14+ characters.</div>
-        </article>
-
-        <article class="card">
-          <h2>Suspicious-link check</h2><p class="sub">A quick warning system—not a replacement for antivirus scanning.</p>
-          <label for="url">Paste a link without opening it</label>
-          <div class="field"><input id="url" inputmode="url" autocomplete="off" placeholder="https://example.com"><button class="btn" id="scanUrl" type="button">Check</button></div>
-          <div class="result" id="urlResult" style="margin-top:14px">Look for misspellings, strange domains, and login pressure.</div>
-        </article>
-
-        <article class="card wide">
-          <h2>Your protection checklist</h2><p class="sub">Tick only the protections you have actually enabled.</p>
-          <div class="checks" id="checklist">
-            <label class="check"><input type="checkbox"><span>Use a unique password for GitHub</span><em class="badge">Critical</em></label>
-            <label class="check"><input type="checkbox"><span>Enable two-factor authentication (2FA)</span><em class="badge">Critical</em></label>
-            <label class="check"><input type="checkbox"><span>Save recovery codes somewhere secure</span><em class="badge">Recovery</em></label>
-            <label class="check"><input type="checkbox"><span>Review authorized apps and active sessions</span><em class="badge">Monthly</em></label>
-            <label class="check"><input type="checkbox"><span>Never commit API keys, passwords, or tokens</span><em class="badge">Code safety</em></label>
-            <label class="check"><input type="checkbox"><span>Keep the browser and operating system updated</span><em class="badge">Device</em></label>
-          </div>
-        </article>
-
-        <article class="card wide">
-          <h2>If you think your account was hacked</h2><p class="sub">Act from a trusted device and use official websites only.</p>
-          <div class="steps">
-            <div class="step"><b>1. Secure email</b>Change your email password first.</div>
-            <div class="step"><b>2. Reset GitHub</b>Change your GitHub password.</div>
-            <div class="step"><b>3. End access</b>Revoke unknown sessions, apps, and tokens.</div>
-            <div class="step"><b>4. Check activity</b>Review commits, keys, and security logs.</div>
-          </div>
-        </article>
-      </section>
-      <div class="notice"><strong>Important:</strong> No webpage can guarantee that you will never be hacked. This tool reduces common risks through safer habits and warning checks.</div>
-    </main>
-    <footer>GitHub Protect • Defensive security guidance • No tracking</footer>
-  </div>
-
-  <script>
-    const password=document.querySelector('#password'),passwordBar=document.querySelector('#passwordBar'),passwordResult=document.querySelector('#passwordResult');
-    document.querySelector('#showPassword').addEventListener('click',e=>{password.type=password.type==='password'?'text':'password';e.target.textContent=password.type==='password'?'Show':'Hide'});
-    password.addEventListener('input',()=>{
-      const v=password.value;let points=0,notes=[];
-      if(v.length>=14)points+=35;else notes.push('use 14+ characters');
-      if(/[a-z]/.test(v)&&/[A-Z]/.test(v))points+=15;else notes.push('mix letter cases');
-      if(/\d/.test(v))points+=15;else notes.push('add a number');
-      if(/[^\w\s]/.test(v))points+=15;else notes.push('add a symbol');
-      if(v.length>=20)points+=10;
-      if(!/(password|qwerty|12345|github|admin)/i.test(v))points+=10;else notes.push('avoid common words');
-      points=Math.min(points,100);
-      const level=points>=80?'Strong':points>=55?'Fair':v?'Weak':'Not checked';
-      passwordBar.style.width=points+'%';passwordBar.style.background=points>=80?'var(--green)':points>=55?'var(--yellow)':'var(--red)';
-      passwordResult.innerHTML=v?'<strong>'+level+' ('+points+'%)</strong>'+(notes.length?' — '+notes.join(', ')+'.':' — solid structure; make sure it is unique.'):'Use a unique passphrase with 14+ characters.';
-    });
-
-    document.querySelector('#scanUrl').addEventListener('click',()=>{
-      const raw=document.querySelector('#url').value.trim(),out=document.querySelector('#urlResult');let warnings=[];
-      try{
-        const u=new URL(raw.includes('://')?raw:'https://'+raw);
-        if(u.protocol!=='https:')warnings.push('it does not use HTTPS');
-        if(/\d+\.\d+\.\d+\.\d+/.test(u.hostname))warnings.push('it uses a raw IP address');
-        if(u.hostname.split('.').length>4)warnings.push('it has many subdomains');
-        if(/(login|verify|secure|update|wallet|gift|prize)/i.test(u.hostname))warnings.push('the domain uses pressure-related words');
-        if(u.hostname.includes('xn--'))warnings.push('it contains encoded international characters');
-        if(raw.includes('@'))warnings.push('it contains an @ symbol that can hide the real destination');
-        out.innerHTML=warnings.length?'<strong style="color:var(--red)">Caution:</strong> '+warnings.join('; ')+'. Do not open it until verified.':'<strong style="color:var(--green)">No obvious warning signs found.</strong> Still verify the sender and domain before opening.';
-      }catch{out.innerHTML='<strong style="color:var(--red)">Invalid link.</strong> Paste a complete website address.'}
-    });
-
-    const boxes=[...document.querySelectorAll('#checklist input')],score=document.querySelector('#score'),scoreBar=document.querySelector('#scoreBar'),scoreTip=document.querySelector('#scoreTip');
-    function updateScore(){
-      const done=boxes.filter(b=>b.checked).length,pct=Math.round(done/boxes.length*100);
-      score.textContent=pct+'%';scoreBar.style.width=pct+'%';scoreTip.textContent=pct===100?'Strong setup—review it regularly.':pct>=50?'Good progress—finish the critical protections.':'Start with a unique password and 2FA.';
-      localStorage.setItem('githubProtectChecklist',JSON.stringify(boxes.map(b=>b.checked)));
-    }
-    try{const saved=JSON.parse(localStorage.getItem('githubProtectChecklist'));if(Array.isArray(saved))boxes.forEach((b,i)=>b.checked=!!saved[i])}catch{}
-    boxes.forEach(b=>b.addEventListener('change',updateScore));updateScore();
-  </script>
-</body>
-</html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090d18"><meta name="description" content="Installable local file-safety scanner demo.">
+<link rel="manifest" href="./manifest.json"><link rel="icon" href="./icon.svg">
+<title>GitHub Protect</title>
+<style>
+:root{--bg:#070a12;--card:#101827;--line:#26354d;--txt:#edf5ff;--muted:#97a9c2;--blue:#58a6ff;--green:#38d996;--amber:#ffd166;--red:#ff6078}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -20%,#173a65,transparent 40%),var(--bg);color:var(--txt);font:15px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}.app{max-width:1050px;margin:auto;padding:22px}header{display:flex;justify-content:space-between;align-items:center}.brand{font-size:19px;font-weight:900;display:flex;align-items:center;gap:10px}.logo{display:grid;place-items:center;width:42px;height:42px;background:linear-gradient(145deg,var(--blue),#7868ff);border-radius:13px}.pill{color:var(--green);font-size:13px}.hero{padding:70px 0 40px;display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:center}.eyebrow{font-size:12px;color:var(--blue);font-weight:900;letter-spacing:.13em;text-transform:uppercase}h1{font-size:clamp(44px,7vw,78px);line-height:.95;letter-spacing:-.055em;margin:12px 0 20px}p{color:var(--muted)}.hero p{font-size:18px}.card{background:linear-gradient(150deg,#142038,#0e1522);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 20px 60px #0007}.shield{font-size:65px}.status{color:var(--green);font-size:22px;font-weight:900}.buttons{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:13px 17px;background:var(--blue);color:#04101e;font-weight:900;cursor:pointer}.btn.alt{background:#202e45;color:var(--txt);border:1px solid #334761}.btn[hidden]{display:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.wide{grid-column:1/-1}h2{margin:0 0 5px}.drop{margin-top:18px;border:2px dashed #38506f;border-radius:18px;padding:38px 20px;text-align:center;background:#080e19;transition:.2s}.drop.over{border-color:var(--blue);background:#0d1a2b}.drop input{display:none}.results{display:grid;gap:10px;margin-top:16px}.file{display:grid;grid-template-columns:1fr auto;gap:10px;background:#080e19;border:1px solid var(--line);padding:13px;border-radius:12px}.file small{display:block;color:var(--muted);overflow-wrap:anywhere}.tag{align-self:center;padding:4px 9px;border-radius:99px;font-size:12px;font-weight:800}.safe{background:#123d2d;color:#72edb6}.warn{background:#4a3411;color:#ffdc87}.danger{background:#4a1822;color:#ff9bab}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.fact{padding:14px;background:#090f1b;border:1px solid var(--line);border-radius:12px}.notice{margin-top:18px;padding:14px 16px;background:#251e0d;border-left:4px solid var(--amber);border-radius:10px;color:#eddfb6}footer{text-align:center;color:var(--muted);padding:34px}.hash{font-family:ui-monospace,monospace;font-size:11px}@media(max-width:720px){.hero,.grid{grid-template-columns:1fr}.wide{grid-column:auto}.facts{grid-template-columns:1fr}.pill{display:none}}
+</style></head><body><div class="app">
+<header><div class="brand"><span class="logo">🛡️</span>GitHub Protect</div><span class="pill">● Local-only scanning</span></header>
+<main>
+<section class="hero"><div><div class="eyebrow">Installable security PWA</div><h1>Check files before you trust them.</h1><p>Select downloaded files for a private, browser-based risk check. Files never leave your device.</p><div class="buttons"><button class="btn" id="install" hidden>Install app</button><button class="btn alt" id="choose">Choose files</button></div></div><div class="card"><div class="shield">🛡️</div><div class="status">Protection demo ready</div><p id="offline">Checking offline support…</p></div></section>
+<section class="grid">
+<article class="card wide"><h2>Local file scan</h2><p>Checks filenames, extensions, file signatures, size, and creates a SHA-256 fingerprint. It does not upload or execute files.</p><div class="drop" id="drop"><strong>Drop files here</strong><p>or click to choose files</p><input id="files" type="file" multiple></div><div class="results" id="results"></div></article>
+<article class="card"><h2>What it detects</h2><p>Risky executable types, hidden double extensions, suspicious script formats, misleading names, and mismatched file signatures.</p></article>
+<article class="card"><h2>Privacy</h2><p>Scanning uses browser APIs on your device. The app has no analytics, account, file uploads, or remote database.</p></article>
+<article class="card wide"><h2>Browser limitations</h2><div class="facts"><div class="fact"><strong>No background device scan</strong><p>Browsers cannot inspect files you do not select.</p></div><div class="fact"><strong>No automatic removal</strong><p>The app cannot quarantine or delete system files.</p></div><div class="fact"><strong>No guaranteed verdict</strong><p>Unknown malware may look harmless to basic checks.</p></div></div></article>
+</section><div class="notice"><strong>Demo, not a full antivirus:</strong> If a file is marked “No obvious risk,” that does not prove it is safe. Keep your operating system and trusted antivirus protection enabled.</div>
+</main><footer>GitHub Protect • Offline-ready PWA • No tracking</footer></div>
+<script>
+const input=document.querySelector('#files'),drop=document.querySelector('#drop'),results=document.querySelector('#results');
+document.querySelector('#choose').onclick=()=>input.click();drop.onclick=()=>input.click();
+for(const event of ['dragenter','dragover'])drop.addEventListener(event,e=>{e.preventDefault();drop.classList.add('over')});
+for(const event of ['dragleave','drop'])drop.addEventListener(event,e=>{e.preventDefault();drop.classList.remove('over')});
+drop.addEventListener('drop',e=>scan([...e.dataTransfer.files]));input.addEventListener('change',()=>scan([...input.files]));
+const dangerous=new Set(['exe','msi','bat','cmd','com','scr','ps1','vbs','js','jse','wsf','jar','reg','hta','apk','dmg','pkg']);
+const decoys=/invoice|receipt|password|urgent|payment|photo|document|update|crack|free|winner/i;
+const fmt=n=>n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(1)+' MB';
+async function scan(files){results.innerHTML='';for(const file of files){const bits=file.name.toLowerCase().split('.'),ext=bits.at(-1)||'',reasons=[];let level='safe',label='No obvious risk';
+if(dangerous.has(ext)){level='danger';label='High risk';reasons.push('Executable or script file');}
+if(bits.length>2&&dangerous.has(ext)){level='danger';label='High risk';reasons.push('Double extension may disguise the real type');}
+if(decoys.test(file.name)&&dangerous.has(ext))reasons.push('Filename uses a commonly misleading word');
+if(file.size===0){level=level==='danger'?level:'warn';label=level==='danger'?label:'Needs review';reasons.push('File is empty');}
+const first=new Uint8Array(await file.slice(0,8).arrayBuffer());if(first[0]===77&&first[1]===90&&!['exe','dll','scr','com'].includes(ext)){level='danger';label='High risk';reasons.push('Windows executable signature conflicts with extension');}
+const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',await file.arrayBuffer()))].map(b=>b.toString(16).padStart(2,'0')).join('');
+if(!reasons.length)reasons.push('No basic warning signs detected');
+const row=document.createElement('div');row.className='file';row.innerHTML='<div><strong></strong><small></small><small class="hash"></small></div><span class="tag '+level+'">'+label+'</span>';row.querySelector('strong').textContent=file.name;row.querySelectorAll('small')[0].textContent=fmt(file.size)+' • '+reasons.join(' • ');row.querySelector('.hash').textContent='SHA-256: '+hash;results.append(row);}}
+let prompt;const install=document.querySelector('#install');addEventListener('beforeinstallprompt',e=>{e.preventDefault();prompt=e;install.hidden=false});install.onclick=async()=>{if(prompt){await prompt.prompt();prompt=null;install.hidden=true}};
+if('serviceWorker'in navigator){navigator.serviceWorker.register('./sw.js').then(()=>document.querySelector('#offline').textContent='Installed files can be scanned offline.').catch(()=>document.querySelector('#offline').textContent='Offline mode unavailable on this host.')}
+</script></body></html>
