@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GitHub Protect",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Warns about risky downloads and suspicious links before you trust them.",
   "permissions": [
     "downloads",
@@ -18,7 +18,10 @@
   },
   "action": {
     "default_title": "GitHub Protect",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icon.svg"
+    }
   },
   "options_page": "options.html",
   "content_scripts": [
@@ -32,5 +35,8 @@
       ],
       "run_at": "document_start"
     }
-  ]
+  ],
+  "icons": {
+    "128": "icon.svg"
+  }
 }
