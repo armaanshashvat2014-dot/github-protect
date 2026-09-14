@@ -1,9 +1,19 @@
 const RISKY=['exe','msi','bat','cmd','com','scr','ps1','vbs','vbe','js','jse','wsf','hta','jar','reg','apk','dmg','pkg'];
+let threatHosts=new Set();
+async function loadThreats(){const {urlhausHosts=[]}=await chrome.storage.local.get('urlhausHosts');threatHosts=new Set(urlhausHosts)}
+async function refreshThreats(){
+ try{const res=await fetch('https://urlhaus.abuse.ch/downloads/text_online/',{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);
+ const hosts=new Set();for(const line of (await res.text()).split(/\r?\n/)){if(!line||line.startsWith('#'))continue;try{hosts.add(new URL(line).hostname.toLowerCase())}catch{}}
+ threatHosts=hosts;await chrome.storage.local.set({urlhausHosts:[...hosts],urlhausUpdated:Date.now()});
+ }catch(error){console.warn('URLhaus refresh failed',error)}
+}
+loadThreats();chrome.runtime.onInstalled.addListener(()=>{refreshThreats();chrome.alarms.create('urlhaus-refresh',{periodInMinutes:360})});
+chrome.runtime.onStartup.addListener(refreshThreats);chrome.alarms.onAlarm.addListener(a=>{if(a.name==='urlhaus-refresh')refreshThreats()});
 const DECOY=/invoice|receipt|password|urgent|payment|photo|document|update|crack|free|winner|claim/i;
 const ext=name=>(name||'').toLowerCase().split('.').pop();
 const filename=item=>(item.filename||item.url||'').split(/[\\/]/).pop();
 function assess(item){
- const name=filename(item),parts=name.toLowerCase().split('.'),e=ext(name),reasons=[];let score=0;
+ const name=filename(item),parts=name.toLowerCase().split('.'),e=ext(name),reasons=[];let score=0;try{const host=new URL(item.url).hostname.toLowerCase();if([...threatHosts].some(h=>host===h||host.endsWith('.'+h))){score=100;reasons.push('Download source is listed by URLhaus')}}catch{}
  if(RISKY.includes(e)){score+=45;reasons.push('Executable or script download')}
  if(parts.length>2&&RISKY.includes(e)){score+=30;reasons.push('Double extension')}
  if(DECOY.test(name)&&RISKY.includes(e)){score+=20;reasons.push('Misleading filename')}
@@ -30,4 +40,4 @@ chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
  else if(msg.type==='risk-url')reply(checkUrl(msg.url));
  return true;
 });
-function checkUrl(raw){try{const u=new URL(raw),reasons=[];let score=0;if(u.protocol!=='https:'){score+=20;reasons.push('not HTTPS')}if(/^\d+\.\d+\.\d+\.\d+$/.test(u.hostname)){score+=35;reasons.push('raw IP address')}if(u.hostname.includes('xn--')){score+=25;reasons.push('encoded domain')}if(u.hostname.split('.').length>4){score+=15;reasons.push('many subdomains')}if(/login|verify|wallet|gift|prize|secure-update/i.test(u.hostname)){score+=25;reasons.push('pressure words in domain')}if(raw.includes('@')){score+=40;reasons.push('hidden destination pattern')}return {score,level:score>=50?'danger':score>=20?'warning':'safe',reasons}}catch{return {score:100,level:'danger',reasons:['invalid URL']}}}
+function checkUrl(raw){try{const u=new URL(raw),reasons=[];let score=0;const host=u.hostname.toLowerCase();if([...threatHosts].some(h=>host===h||host.endsWith('.'+h))){score=100;reasons.push('Matched the live URLhaus malware feed')}if(u.protocol!=='https:'){score+=20;reasons.push('not HTTPS')}if(/^\d+\.\d+\.\d+\.\d+$/.test(u.hostname)){score+=35;reasons.push('raw IP address')}if(u.hostname.includes('xn--')){score+=25;reasons.push('encoded domain')}if(u.hostname.split('.').length>4){score+=15;reasons.push('many subdomains')}if(/login|verify|wallet|gift|prize|secure-update/i.test(u.hostname)){score+=25;reasons.push('pressure words in domain')}if(raw.includes('@')){score+=40;reasons.push('hidden destination pattern')}return {score,level:score>=50?'danger':score>=20?'warning':'safe',reasons}}catch{return {score:100,level:'danger',reasons:['invalid URL']}}}
