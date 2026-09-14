@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
   "name": "GitHub Protect",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Warns about risky downloads and suspicious links before you trust them.",
   "permissions": [
     "downloads",
     "storage",
     "notifications",
-    "tabs"
+    "tabs",
+    "alarms"
   ],
   "host_permissions": [
     "<all_urls>"
