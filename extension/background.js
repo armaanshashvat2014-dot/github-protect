@@ -12,18 +12,25 @@ chrome.runtime.onStartup.addListener(refreshThreats);chrome.alarms.onAlarm.addLi
 const DECOY=/invoice|receipt|password|urgent|payment|photo|document|update|crack|free|winner|claim/i;
 const ext=name=>(name||'').toLowerCase().split('.').pop();
 const filename=item=>(item.filename||item.url||'').split(/[\\/]/).pop();
+function chromeVerdict(danger){
+ if(danger==='safe'||danger==='accepted')return {label:'Secure',level:'secure'};
+ if(['file','url','content','host','dangerous','malicious','accountCompromise'].includes(danger))return {label:'Not safe',level:'not-safe'};
+ return {label:'Warning',level:'warning'};
+}
 function assess(item){
+ const verdict=chromeVerdict(item.danger);
  const name=filename(item),parts=name.toLowerCase().split('.'),e=ext(name),reasons=[];let score=0;try{const host=new URL(item.url).hostname.toLowerCase();if([...threatHosts].some(h=>host===h||host.endsWith('.'+h))){score=100;reasons.push('Download source is listed by URLhaus')}}catch{}
  if(RISKY.includes(e)){score+=45;reasons.push('Executable or script download')}
  if(parts.length>2&&RISKY.includes(e)){score+=30;reasons.push('Double extension')}
  if(DECOY.test(name)&&RISKY.includes(e)){score+=20;reasons.push('Misleading filename')}
- if(item.danger&&item.danger!=='safe'&&item.danger!=='accepted'){score+=60;reasons.push('Chrome warning: '+item.danger)}
+ if(verdict.level==='not-safe'){score+=70;reasons.push('Chrome verdict: Not safe ('+item.danger+')')}
+ else if(verdict.level==='warning'&&item.danger){score+=30;reasons.push('Chrome verdict: Warning ('+item.danger+')')}
  if(/^http:/.test(item.url||'')){score+=15;reasons.push('Unencrypted download source')}
- return {name,score:Math.min(score,100),level:score>=60?'blocked':score>=35?'warning':'safe',reasons};
+ return {name,score:Math.min(score,100),level:score>=60?'blocked':score>=35?'warning':'safe',chromeVerdict:verdict.label,chromeDanger:item.danger||'unknown',reasons};
 }
 async function sendToApp(entry){const tabs=await chrome.tabs.query({url:['https://armaanshashvat2014-dot.github.io/github-protect/*']});for(const tab of tabs){try{await chrome.tabs.sendMessage(tab.id,{type:'security-alert',entry})}catch{}}}
 async function save(entry){
- const {history=[]}=await chrome.storage.local.get('history');history.unshift(entry);await chrome.storage.local.set({history:history.slice(0,100)});if(entry.level!=='safe')sendToApp(entry);
+ const {history=[]}=await chrome.storage.local.get('history');const updated=[entry,...history.filter(x=>x.id!==entry.id)];await chrome.storage.local.set({history:updated.slice(0,100)});if(entry.level!=='safe')sendToApp(entry);
  chrome.action.setBadgeText({text:entry.level==='blocked'?'!':entry.level==='warning'?'?':''});chrome.action.setBadgeBackgroundColor({color:entry.level==='blocked'?'#e5484d':'#d99b19'});
 }
 chrome.downloads.onCreated.addListener(async item=>{
@@ -34,6 +41,11 @@ chrome.downloads.onCreated.addListener(async item=>{
  if(risk.level!=='safe'){
   chrome.notifications.create('download-'+item.id,{type:'basic',iconUrl:'icon.svg',title:paused?'Risky download paused':'Risky download detected',message:risk.name+' — '+risk.reasons.join(', '),priority:2});
  }
+});
+chrome.downloads.onChanged.addListener(async delta=>{
+ if(!delta.danger?.current)return;const matches=await chrome.downloads.search({id:delta.id});if(!matches.length)return;
+ const item=matches[0],risk=assess(item),entry={id:item.id,name:risk.name,url:item.url,createdAt:Date.now(),...risk,paused:item.paused};await save(entry);
+ if(risk.chromeVerdict!=='Secure')chrome.notifications.create('verdict-'+item.id,{type:'basic',iconUrl:'icon.svg',title:'Chrome verdict: '+risk.chromeVerdict,message:risk.name+' — '+risk.reasons.join(', '),priority:2});
 });
 chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
  if(msg.type==='resume')chrome.downloads.resume(msg.id).then(()=>reply({ok:true})).catch(e=>reply({ok:false,error:e.message}));
