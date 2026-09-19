@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "GitHub Protect",
-  "version": "1.3.0",
-  "description": "Warns about risky downloads and suspicious links before you trust them.",
+  "version": "1.4.0",
+  "description": "Warns about risky downloads in Chrome, Edge, Brave, and Opera before you trust them.",
   "permissions": [
     "downloads",
     "storage",
