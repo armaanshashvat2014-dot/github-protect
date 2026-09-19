@@ -1,6 +1,6 @@
 {
-  "app": "4.0.0",
+  "app": "4.1.0",
   "extension": "1.5.0",
   "released": "2026-09-19",
-  "notes": "Added a local family-device checklist, searchable scan history, privacy-policy review, password-strength checking, suspicious-email analysis, browser update guidance, security learning challenges, and a privacy-safe feedback reporter. No monetization features were added."
+  "notes": "Redesigned the dashboard with prominent actions, consistent tool cards, sticky category navigation, collapsible security sections, global tool search, improved form controls, and better mobile spacing."
 }
