@@ -1,6 +1,6 @@
 {
-  "app": "4.1.0",
+  "app": "4.2.0",
   "extension": "1.5.0",
   "released": "2026-09-19",
-  "notes": "Redesigned the dashboard with prominent actions, consistent tool cards, sticky category navigation, collapsible security sections, global tool search, improved form controls, and better mobile spacing."
+  "notes": "Replaced the top navigation with five direct section buttons: File Testing, Extra, What It Detects, Tool Center, and Security Tool Center."
 }
