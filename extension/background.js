@@ -55,3 +55,16 @@ chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
  return true;
 });
 function checkUrl(raw){try{const u=new URL(raw),reasons=[];let score=0;const host=u.hostname.toLowerCase();if([...threatHosts].some(h=>host===h||host.endsWith('.'+h))){score=100;reasons.push('Matched the live URLhaus malware feed')}if(u.protocol!=='https:'){score+=20;reasons.push('not HTTPS')}if(/^\d+\.\d+\.\d+\.\d+$/.test(u.hostname)){score+=35;reasons.push('raw IP address')}if(u.hostname.includes('xn--')){score+=25;reasons.push('encoded domain')}if(u.hostname.split('.').length>4){score+=15;reasons.push('many subdomains')}if(/login|verify|wallet|gift|prize|secure-update/i.test(u.hostname)){score+=25;reasons.push('pressure words in domain')}if(raw.includes('@')){score+=40;reasons.push('hidden destination pattern')}return {score,level:score>=50?'danger':score>=20?'warning':'safe',reasons}}catch{return {score:100,level:'danger',reasons:['invalid URL']}}}
+async function handleAntivirusTest(delta){
+ if(!delta.state?.current)return;const matches=await chrome.downloads.search({id:delta.id});if(!matches.length)return;const item=matches[0];
+ if(!/eicar-antivirus-test/i.test(item.filename||''))return;
+ const {handledAntivirusTests=[]}=await chrome.storage.local.get('handledAntivirusTests');if(handledAntivirusTests.includes(item.id))return;
+ let active=false,message='';
+ if(delta.state.current==='interrupted'){active=true;message='Protection active — the harmless antivirus test was blocked.'}
+ else if(delta.state.current==='complete'){try{await chrome.downloads.removeFile(item.id);message='Update antivirus — the harmless test was not blocked, so GitHub Protector auto-deleted it.'}catch{active=true;message='Protection active — the antivirus test was already blocked or removed.'}try{await chrome.downloads.erase({id:item.id})}catch{}}
+ else return;
+ await chrome.storage.local.set({handledAntivirusTests:[item.id,...handledAntivirusTests].slice(0,100)});
+ const entry={id:'antivirus-test-'+item.id,name:'Antivirus protection test',url:item.url,createdAt:Date.now(),score:active?0:60,level:active?'warning':'blocked',chromeVerdict:active?'Protection active':'Update antivirus',chromeDanger:item.danger||'test',reasons:[message],paused:false};
+ await save(entry);chrome.notifications.create('antivirus-test-'+item.id,{type:'basic',iconUrl:'icon.svg',title:active?'Protection active':'Update antivirus',message,priority:2});
+}
+chrome.downloads.onChanged.addListener(handleAntivirusTest);
