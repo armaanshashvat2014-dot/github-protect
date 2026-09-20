@@ -1,6 +1,6 @@
 {
   "app": "4.2.0",
-  "extension": "1.5.0",
-  "released": "2026-09-19",
-  "notes": "Replaced the top navigation with five direct section buttons: File Testing, Extra, What It Detects, Tool Center, and Security Tool Center."
+  "extension": "2.0.0",
+  "released": "2026-09-20",
+  "notes": "Extension 2.0 adds an on/off control, strict mode, notification preferences, trusted and blocked domains, improved look-alike link detection, popup URL checks, searchable download history, report export, threat-feed status, and clearer source details."
 }
