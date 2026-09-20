@@ -1,7 +1,7 @@
 {
   "name": "GitHub Protect™",
   "short_name": "GH Protect",
-  "description": "Free private browser-based tools for checking suspicious links, downloads, files, QR codes, extension permissions and scam messages.",
+  "description": "Private browser-based security tools with local scanning, organized reports, protection routines, and a preview of GitHub Protect Pro.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

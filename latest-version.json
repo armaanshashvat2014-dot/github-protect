@@ -1,6 +1,6 @@
 {
-  "app": "5.1.1",
+  "app": "5.2.0",
   "extension": "2.0.0",
   "released": "2026-09-20",
-  "notes": "Moved the English-Hindi translator out of the tool grid into a compact top-bar button that opens a private translation popup."
+  "notes": "Added a polished GitHub Protect Pro preview with Free, Pro, and Teams tiers, a productivity workspace, protection routines, risk inbox shortcuts, and downloadable security reports."
 }
