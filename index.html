@@ -134,7 +134,7 @@ document.querySelector('#closeInstall').onclick=()=>installModal.classList.remov
 installModal.addEventListener('click',e=>{if(e.target===installModal)installModal.classList.remove('open')});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')installModal.classList.remove('open')});
 document.querySelectorAll('.tab').forEach(tab=>tab.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===tab));document.querySelectorAll('.os-panel').forEach(x=>x.classList.toggle('active',x.id===tab.dataset.os))});
-const extensionFiles=['manifest.json','background.js','content.js','popup.html','popup.js','options.html','icon.svg'];
+const extensionFiles=['manifest.json','background.js','content.js','popup.html','popup.js','options.html','options.js','icon.svg'];
 function crc32(data){let crc=-1;for(const byte of data){crc^=byte;for(let i=0;i<8;i++)crc=(crc>>>1)^((crc&1)?0xedb88320:0)}return(crc^-1)>>>0}
 function zipStore(entries){
  const enc=new TextEncoder(),parts=[],central=[];let offset=0;
