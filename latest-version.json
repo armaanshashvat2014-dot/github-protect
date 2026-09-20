@@ -1,6 +1,6 @@
 {
-  "app": "4.6.1",
+  "app": "5.0.0",
   "extension": "2.0.0",
   "released": "2026-09-20",
-  "notes": "Fixed stale-update caching with immediate service-worker activation, network-first loading, automatic old-cache cleanup, and versioned app scripts. Includes the ™ title and two-way PWA sharing."
+  "notes": "Added 10 English and 10 Hindi search landing pages, exact tool deep-links, shareable focused pages, a main-app checker directory, official release notes, and expanded sitemap discovery."
 }
