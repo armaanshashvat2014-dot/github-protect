@@ -1,6 +1,6 @@
 {
-  "app": "4.5.0",
+  "app": "4.6.0",
   "extension": "2.0.0",
   "released": "2026-09-20",
-  "notes": "Added a native Share button with clipboard fallback, search-focused descriptions, eight original security guides, structured FAQs, and updated sitemap metadata."
+  "notes": "Added the ™ symbol beside the top app title and expanded sharing with native outbound sharing, copy-link fallback, and installed-PWA share-target support for receiving links and text."
 }
