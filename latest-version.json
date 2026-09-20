@@ -1,6 +1,6 @@
 {
-  "app": "5.3.0",
+  "app": "5.4.0",
   "extension": "2.0.0",
   "released": "2026-09-20",
-  "notes": "Separated GitHub Protect Free, Pro, and Teams into three complete product pages. Pro now has a personal command centre, while Teams has a distinct shared security hub."
+  "notes": "Added a privacy-safe traffic hub with shareable security scores, WhatsApp and Telegram sharing, a weekly safety challenge, Scam of the Week, scan-based friend recommendations, a local safety streak, a downloadable checklist, and Bing Webmaster readiness. No filenames or file contents are shared."
 }
