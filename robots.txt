@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://armaanshashvat2014-dot.github.io/github-protect/sitemap.xml
+Sitemap: https://armaanshashvat2014-dot.github.io/github-protect/sitemap.txt
