@@ -1,5 +1,5 @@
-const CACHE='github-protect-v29';
-const CORE=['./','./index.html','./manifest.json','./icon.svg','./latest-version.json','./landing.css','./landing.js'];
+const CACHE='github-protect-v30';
+const CORE=['./','./index.html','./manifest.json','./icon.svg','./latest-version.json','./landing.css','./landing.js','./translator.js'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
