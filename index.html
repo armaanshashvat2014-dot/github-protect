@@ -164,4 +164,4 @@ function updateScrollButton(){const atBottom=innerHeight+scrollY>=document.docum
 scrollPage.onclick=()=>{const atBottom=scrollPage.classList.contains('at-bottom');scrollTo({top:atBottom?0:Math.min(scrollY+innerHeight*.82,document.documentElement.scrollHeight),behavior:'smooth'})};
 addEventListener('scroll',updateScrollButton,{passive:true});addEventListener('resize',updateScrollButton);updateScrollButton();
 if('serviceWorker'in navigator){navigator.serviceWorker.register('./sw.js').then(()=>document.querySelector('#offline').textContent='Installed files can be scanned offline.').catch(()=>document.querySelector('#offline').textContent='Offline mode unavailable on this host.')}
-</script><script src="./security-tools.js"></script><script src="./ui-organizer.js"></script><script src="./app-upgrades.js"></script></body></html>
+</script><script src="./security-tools.js"></script><script src="./security-additions.js"></script><script src="./ui-organizer.js"></script><script src="./app-upgrades.js"></script></body></html>
