@@ -1,5 +1,5 @@
 (()=>{
-const VERSION='4.5.0',KEY='githubProtectorSecurityData';
+const VERSION='4.6.0',KEY='githubProtectorSecurityData';
 const riskyExt=new Set(['exe','msi','bat','cmd','com','scr','ps1','vbs','vbe','js','jse','wsf','hta','jar','reg','apk','dmg','pkg','sh']);
 const permissionRisk={history:5,'webRequest':5,'webRequestBlocking':5,'<all_urls>':5,debugger:5,nativeMessaging:5,downloads:3,clipboardRead:4,clipboardWrite:2,cookies:4,geolocation:3,management:4,tabs:2,notifications:1,storage:1,camera:3,microphone:3};
 const officialStores=['chromewebstore.google.com','play.google.com','apps.microsoft.com','apps.apple.com','addons.mozilla.org','microsoftedge.microsoft.com','addons.opera.com','galaxystore.samsung.com','galaxy.store','appgallery.huawei.com','amazon.com','www.amazon.com'];
