@@ -1,6 +1,6 @@
 {
-  "app": "5.1.0",
+  "app": "5.1.1",
   "extension": "2.0.0",
   "released": "2026-09-20",
-  "notes": "Added Tool 32: an English-to-Hindi and Hindi-to-English text translator using on-device browser translation when supported, with swap, copy, privacy-safe fallback and bilingual discovery pages."
+  "notes": "Moved the English-Hindi translator out of the tool grid into a compact top-bar button that opens a private translation popup."
 }
