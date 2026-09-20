@@ -1,6 +1,6 @@
 {
-  "app": "5.2.0",
+  "app": "5.3.0",
   "extension": "2.0.0",
   "released": "2026-09-20",
-  "notes": "Added a polished GitHub Protect Pro preview with Free, Pro, and Teams tiers, a productivity workspace, protection routines, risk inbox shortcuts, and downloadable security reports."
+  "notes": "Separated GitHub Protect Free, Pro, and Teams into three complete product pages. Pro now has a personal command centre, while Teams has a distinct shared security hub."
 }
