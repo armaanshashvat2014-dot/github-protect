@@ -1,6 +1,6 @@
 {
-  "app": "5.0.0",
+  "app": "5.1.0",
   "extension": "2.0.0",
   "released": "2026-09-20",
-  "notes": "Added 10 English and 10 Hindi search landing pages, exact tool deep-links, shareable focused pages, a main-app checker directory, official release notes, and expanded sitemap discovery."
+  "notes": "Added Tool 32: an English-to-Hindi and Hindi-to-English text translator using on-device browser translation when supported, with swap, copy, privacy-safe fallback and bilingual discovery pages."
 }
