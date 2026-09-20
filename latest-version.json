@@ -1,6 +1,6 @@
 {
-  "app": "4.3.0",
+  "app": "4.4.0",
   "extension": "2.0.0",
   "released": "2026-09-20",
-  "notes": "Added a cryptographically secure password generator, live strength guidance, upgrade announcements in the notification centre, and official upgrade-news links to Amazing Armaan on YouTube."
+  "notes": "Added an Update Authenticity Checker, an on-device suspicious-page screenshot marker with report export, and a broader local scam-message analyzer."
 }
