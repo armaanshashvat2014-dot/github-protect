@@ -24,3 +24,13 @@ https://armaanshashvat2014-dot.github.io/github-protect/english-hindi-translator
 https://armaanshashvat2014-dot.github.io/github-protect/hi/english-hindi-translator/
 https://armaanshashvat2014-dot.github.io/github-protect/pro/
 https://armaanshashvat2014-dot.github.io/github-protect/teams/
+https://armaanshashvat2014-dot.github.io/github-protect/email-scam-analyzer/
+https://armaanshashvat2014-dot.github.io/github-protect/extension-manifest-scanner/
+https://armaanshashvat2014-dot.github.io/github-protect/security-dashboard/
+https://armaanshashvat2014-dot.github.io/github-protect/emergency-security-guide/
+https://armaanshashvat2014-dot.github.io/github-protect/threat-library/
+https://armaanshashvat2014-dot.github.io/github-protect/threat-library/phishing/
+https://armaanshashvat2014-dot.github.io/github-protect/threat-library/spyware/
+https://armaanshashvat2014-dot.github.io/github-protect/threat-library/ransomware/
+https://armaanshashvat2014-dot.github.io/github-protect/threat-library/fake-updates/
+https://armaanshashvat2014-dot.github.io/github-protect/threat-library/browser-hijacking/

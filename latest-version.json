@@ -1,6 +1,6 @@
 {
-  "app": "5.4.0",
+  "app": "5.5.0",
   "extension": "2.0.0",
-  "released": "2026-09-20",
-  "notes": "Added a privacy-safe traffic hub with shareable security scores, WhatsApp and Telegram sharing, a weekly safety challenge, Scam of the Week, scan-based friend recommendations, a local safety streak, a downloadable checklist, and Bing Webmaster readiness. No filenames or file contents are shared."
+  "released": "2026-09-22",
+  "notes": "Added a private Email Scam Analyzer, Extension Manifest Scanner, local Security Dashboard, Emergency Security Guide, searchable Threat Encyclopedia, and saved Accessibility Mode. Added ten focused educational pages for useful search discovery without analytics or private-data uploads."
 }
