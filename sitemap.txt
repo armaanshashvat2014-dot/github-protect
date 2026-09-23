@@ -33,4 +33,4 @@ https://armaanshashvat2014-dot.github.io/github-protect/threat-library/phishing/
 https://armaanshashvat2014-dot.github.io/github-protect/threat-library/spyware/
 https://armaanshashvat2014-dot.github.io/github-protect/threat-library/ransomware/
 https://armaanshashvat2014-dot.github.io/github-protect/threat-library/fake-updates/
-https://armaanshashvat2014-dot.github.io/github-protect/threat-library/browser-hijacking/
+https://armaanshashvat2014-dot.github.io/github-protect/threat-library/browser-hijacking/\nhttps://armaanshashvat2014-dot.github.io/github-protect/what-is-github-protector/\n

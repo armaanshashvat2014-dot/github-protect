@@ -1,6 +1,6 @@
 {
-  "app": "5.6.0",
+  "app": "5.7.0",
   "extension": "2.0.0",
   "released": "2026-09-23",
-  "notes": "Added GitHub Protector AI, a private on-device security assistant that explains app features, answers common cybersecurity questions, safely redirects harmful requests, and navigates users directly to the correct tool or guide."
+  "notes": "Added a prominent What does GitHub Protect do? button and a dedicated SEO-ready product guide covering features, privacy, use cases, limitations, FAQs, and honest comparisons with traditional antivirus, built-in browser protection, and basic online scanners."
 }\n
