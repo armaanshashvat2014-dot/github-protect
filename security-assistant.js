@@ -2,7 +2,7 @@
 const $=(s,r=document)=>r.querySelector(s);
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const routes=[
- {keys:['scan file','scan files','file scan','scan computer','check exe','check download'],label:'File Testing',target:'#fileTesting',description:'Choose files or folders for local warning-sign checks.'},
+ {keys:['file testing','scan file','scan files','file scan','scan computer','check exe','check download'],label:'File Testing',target:'#fileTesting',description:'Choose files or folders for local warning-sign checks.'},
  {keys:['what it detects','detect malware','detection','what can you detect'],label:'What It Detects',target:'#whatItDetects',description:'See the file and download warning signs GitHub Protector examines.'},
  {keys:['extension download','download extension','browser protection','install extension'],label:'Browser Protection',target:'#downloadExtension',description:'Download and install the browser-protection extension.'},
  {keys:['app store','store checker','check app'],label:'App Store Safety Checker',target:'#storeUrl',description:'Review an application-store link before trusting it.'},
