@@ -1,5 +1,5 @@
 (()=>{
-const ID='G-5SW1S6NYZK',KEY='githubProtectAnalyticsConsent',PRIVACY='/github-protect/privacy/';
+const ID='G-BXJSEPPSLQ',KEY='githubProtectAnalyticsConsent',PRIVACY='/github-protect/privacy/';
 const $=s=>document.querySelector(s);
 let loaded=false;
 function loadAnalytics(){if(loaded)return;loaded=true;window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',ID,{send_page_view:true,allow_google_signals:false,allow_ad_personalization_signals:false});const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(ID);s.referrerPolicy='strict-origin-when-cross-origin';document.head.append(s)}

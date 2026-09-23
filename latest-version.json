@@ -1,6 +1,6 @@
 {
-  "app": "5.8.0",
+  "app": "5.8.1",
   "extension": "2.0.0",
   "released": "2026-09-23",
-  "notes": "Added privacy-first Google Analytics with a real opt-in choice, Continue without analytics, persistent Analytics settings, and a detailed Privacy page. Google Analytics never receives filenames, file contents, pasted messages, passwords, or Security AI questions."
+  "notes": "Corrected the Google Analytics measurement ID to G-BXJSEPPSLQ. Privacy-first opt-in analytics, Continue without analytics, Analytics settings, and protection of scanner inputs remain unchanged."
 }
