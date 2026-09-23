@@ -1,5 +1,5 @@
-const CACHE='github-protect-v39';
-const CORE=['./','./index.html','./manifest.json','./icon.svg','./latest-version.json','./landing.css','./landing.js','./translator.js','./pro-upgrade.js','./traffic-engine.js','./security-suite.js','./security-assistant.js','./security-page.css','./what-is-github-protector/','./pro/','./teams/'];
+const CACHE='github-protect-v40';
+const CORE=['./','./index.html','./manifest.json','./icon.svg','./latest-version.json','./landing.css','./landing.js','./translator.js','./pro-upgrade.js','./traffic-engine.js','./security-suite.js','./security-assistant.js','./security-page.css','./analytics-consent.js','./privacy/','./what-is-github-protector/','./pro/','./teams/'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
