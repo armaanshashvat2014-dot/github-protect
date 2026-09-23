@@ -36,3 +36,10 @@ https://armaanshashvat2014-dot.github.io/github-protect/threat-library/fake-upda
 https://armaanshashvat2014-dot.github.io/github-protect/threat-library/browser-hijacking/
 https://armaanshashvat2014-dot.github.io/github-protect/what-is-github-protector/
 https://armaanshashvat2014-dot.github.io/github-protect/privacy/
+https://armaanshashvat2014-dot.github.io/github-protect/security-guides/
+https://armaanshashvat2014-dot.github.io/github-protect/security-guides/check-exe-before-opening/
+https://armaanshashvat2014-dot.github.io/github-protect/security-guides/fake-download-websites/
+https://armaanshashvat2014-dot.github.io/github-protect/security-guides/chrome-not-secure-warning/
+https://armaanshashvat2014-dot.github.io/github-protect/security-guides/can-browser-extensions-steal-passwords/
+https://armaanshashvat2014-dot.github.io/github-protect/security-guides/double-file-extensions/
+https://armaanshashvat2014-dot.github.io/github-protect/share/
