@@ -1,6 +1,6 @@
 {
-  "app": "6.2.0",
+  "app": "6.2.1",
   "extension": "2.0.0",
   "released": "2026-09-24",
-  "notes": "Redesigned buttons with gradient depth, shine, hover, press and keyboard-focus states. Replaced user-facing GitHub feedback with a private in-app 1–5-star panel. Genuine 4–5-star reviews saved on the current device animate from left to right; lower ratings remain private and are not displayed."
+  "notes": "Simplified the Share page to one copyable description, removed the duplicate detailed-description option, and added clear spacing, padding and button styling to direct-tool links, safety-tip links and the Explore links."
 }

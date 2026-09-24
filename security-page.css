@@ -6,3 +6,14 @@
 .button:hover,button:hover{transform:translateY(-3px) scale(1.015);box-shadow:0 16px 36px #456ee455,inset 0 1px 0 #fff;filter:saturate(1.12)}.button:hover::after,button:hover::after{transform:translateX(72%) rotate(8deg)}.button:active,button:active{transform:translateY(0) scale(.98)}
 .button:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #ffd166;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.button,button,.button::after,button::after{transition:none}.button:hover,button:hover{transform:none}}
+
+/* Link-group spacing and clarity v6.2.1 */
+.article>h2{margin-top:2.35rem;margin-bottom:.8rem}.article>h2:first-child{margin-top:0}
+.related{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:14px 0 28px}
+.related a,#traffic-discovery nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px!important;border:1px solid #45658e;border-radius:13px;background:linear-gradient(145deg,#1b304d,#122139);color:#dcecff!important;text-decoration:none;font-weight:800;box-shadow:0 7px 18px #0004;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.related a:hover,#traffic-discovery nav a:hover{transform:translateY(-2px);border-color:#73baff;background:linear-gradient(145deg,#234268,#172b49)}
+.related a:focus-visible,#traffic-discovery nav a:focus-visible{outline:3px solid #ffd166;outline-offset:3px}
+#traffic-discovery nav{display:flex!important;gap:14px!important;flex-wrap:wrap!important}
+#traffic-discovery strong{margin-bottom:14px!important}
+@media(max-width:560px){.related a,#traffic-discovery nav a{width:100%}}
+@media(prefers-reduced-motion:reduce){.related a,#traffic-discovery nav a{transition:none}.related a:hover,#traffic-discovery nav a:hover{transform:none}}
