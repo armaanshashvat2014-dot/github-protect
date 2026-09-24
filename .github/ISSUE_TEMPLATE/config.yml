@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Open the live app
+    url: https://armaanshashvat2014-dot.github.io/github-protect/
+    about: Confirm the issue on the latest published version.
+  - name: Read the security guides
+    url: https://armaanshashvat2014-dot.github.io/github-protect/security-guides/
+    about: Find practical browser-safety guidance.

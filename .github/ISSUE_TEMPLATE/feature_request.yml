@@ -1,0 +1,31 @@
+name: Feature request
+description: Suggest a useful defensive or accessibility improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem should this solve?
+      description: Explain the user need rather than only naming a feature.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Suggested improvement
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Web app / PWA
+        - Browser extension
+        - Security guide
+        - Accessibility
+        - Mobile layout
+        - Other
+    validations:
+      required: true

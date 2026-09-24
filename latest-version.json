@@ -1,6 +1,6 @@
 {
-  "app": "6.0.0",
+  "app": "6.1.0",
   "extension": "2.0.0",
-  "released": "2026-09-23",
-  "notes": "Traffic and education release: five detailed search-focused security guides, a Security Guides hub, stronger page titles and descriptions, site-wide internal discovery links, expanded SoftwareApplication structured data, a responsible sharing center, and updated sitemaps."
+  "released": "2026-09-24",
+  "notes": "Added a complete repository landing page, feedback and feature-request forms, contribution and security policies, a five-minute tester checklist, 14 ready-to-share safety tips, a homepage feedback button, and an expanded sharing center."
 }
