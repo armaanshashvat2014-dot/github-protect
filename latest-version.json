@@ -1,6 +1,6 @@
 {
-  "app": "6.2.1",
+  "app": "6.2.2",
   "extension": "2.0.0",
   "released": "2026-09-24",
-  "notes": "Simplified the Share page to one copyable description, removed the duplicate detailed-description option, and added clear spacing, padding and button styling to direct-tool links, safety-tip links and the Explore links."
+  "notes": "Removed the homepage Scan computer button and the adjacent quick Share button. Folder and file selection remains available through the clearer Choose files workflow, and the dedicated Share page remains in the navigation."
 }
