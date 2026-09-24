@@ -4,7 +4,7 @@
 
 **Free, local-first browser security tools for checking suspicious links, downloads, file names, ZIP archives, browser-extension permissions and scam messages.**
 
-[🚀 Try GitHub Protector](https://armaanshashvat2014-dot.github.io/github-protect/) · [📚 Security guides](https://armaanshashvat2014-dot.github.io/github-protect/security-guides/) · [🐛 Report a problem](https://github.com/armaanshashvat2014-dot/github-protect/issues/new/choose) · [📤 Share safely](https://armaanshashvat2014-dot.github.io/github-protect/share/)
+[🚀 Try GitHub Protector](https://armaanshashvat2014-dot.github.io/github-protect/) · [📚 Security guides](https://armaanshashvat2014-dot.github.io/github-protect/security-guides/) · [⭐ Rate & give feedback](https://armaanshashvat2014-dot.github.io/github-protect/?feedback=1) · [📤 Share safely](https://armaanshashvat2014-dot.github.io/github-protect/share/)
 
 ## What it includes
 
@@ -49,7 +49,7 @@ Try one real task, then report what happened:
 - Did a safe item receive an unreasonable warning?
 - What browser and operating system were used?
 
-Use the [bug report form](https://github.com/armaanshashvat2014-dot/github-protect/issues/new?template=bug_report.yml) or [feature request form](https://github.com/armaanshashvat2014-dot/github-protect/issues/new?template=feature_request.yml). Never attach private files, passwords, recovery codes or personal messages.
+Use the in-app **Rate & feedback** panel for product feedback. It stays on that device and does not connect to GitHub. Developers can still use repository issues for technical code problems. Never attach private files, passwords, recovery codes or personal messages.
 
 ## Important safety boundary
 
@@ -70,4 +70,4 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing changes. For responsibl
 
 ## Version
 
-Web app **6.1.0** · Extension **2.0.0**
+Web app **6.2.0** · Extension **2.0.0**

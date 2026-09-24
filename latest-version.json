@@ -1,6 +1,6 @@
 {
-  "app": "6.1.0",
+  "app": "6.2.0",
   "extension": "2.0.0",
   "released": "2026-09-24",
-  "notes": "Added a complete repository landing page, feedback and feature-request forms, contribution and security policies, a five-minute tester checklist, 14 ready-to-share safety tips, a homepage feedback button, and an expanded sharing center."
+  "notes": "Redesigned buttons with gradient depth, shine, hover, press and keyboard-focus states. Replaced user-facing GitHub feedback with a private in-app 1–5-star panel. Genuine 4–5-star reviews saved on the current device animate from left to right; lower ratings remain private and are not displayed."
 }
