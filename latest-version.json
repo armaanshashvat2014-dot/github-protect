@@ -1,6 +1,6 @@
 {
-  "app": "6.2.2",
-  "extension": "2.0.0",
-  "released": "2026-09-24",
-  "notes": "Removed the homepage Scan computer button and the adjacent quick Share button. Folder and file selection remains available through the clearer Choose files workflow, and the dedicated Share page remains in the navigation."
+  "app": "6.2.3",
+  "extension": "2.0.1",
+  "released": "2026-09-26",
+  "notes": "Fixed an extension false positive that treated GitHub Protector's own Security Guides, Share page and other internal pages as suspicious because github.io resembled github.com. Exact HTTPS pages on the official GitHub Protector origin and /github-protect/ path now navigate normally; external and look-alike domains are still scanned."
 }

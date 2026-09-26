@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GitHub Protect",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Protects downloads and checks suspicious links with local rules, trusted and blocked domains, alerts, and optional URLhaus reputation.",
   "permissions": [
     "downloads",

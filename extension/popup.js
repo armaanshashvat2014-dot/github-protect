@@ -6,5 +6,5 @@ $('#enabled').onchange=async e=>{await chrome.runtime.sendMessage({type:'set-ena
 $('#checkUrl').onclick=async()=>{const r=await chrome.runtime.sendMessage({type:'risk-url',url:$('#url').value});$('#urlResult').className='result '+r.level;$('#urlResult').textContent='Risk '+r.score+'/100 — '+(r.reasons.length?r.reasons.join(' • '):'No obvious warning signs')};
 $('#search').oninput=render;$('#filter').onchange=render;
 $('#clear').onclick=async()=>{if(confirm('Clear extension history?')){history=[];await update()}};
-$('#export').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({product:'GitHub Protect Extension',version:'2.0.0',created:new Date().toISOString(),history},null,2)],{type:'application/json'}));a.download='github-protect-extension-report.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+$('#export').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({product:'GitHub Protect Extension',version:'2.0.1',created:new Date().toISOString(),history},null,2)],{type:'application/json'}));a.download='github-protect-extension-report.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 $('#settings').onclick=()=>chrome.runtime.openOptionsPage();load();
