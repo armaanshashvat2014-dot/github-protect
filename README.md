@@ -49,7 +49,7 @@ Try one real task, then report what happened:
 - Did a safe item receive an unreasonable warning?
 - What browser and operating system were used?
 
-Use the in-app **Rate & feedback** panel for product feedback. It stays on that device and does not connect to GitHub. Developers can still use repository issues for technical code problems. Never attach private files, passwords, recovery codes or personal messages.
+Use the in-app **Rate & feedback** panel for product feedback. Ratings use Firebase anonymous sign-in and never connect to GitHub. Only 4–5-star reviews are publicly queried; the project owner can edit or remove ratings in Firebase Console. See [Firebase ratings setup](FIREBASE_RATINGS_SETUP.md). Developers can still use repository issues for technical code problems. Never attach private files, passwords, recovery codes or personal messages.
 
 ## Important safety boundary
 
@@ -59,7 +59,7 @@ GitHub Protector is a defensive assistant, not a replacement for Microsoft Defen
 
 - Selected files are not executed.
 - Extension warning history is stored locally.
-- Public API keys are not committed to this repository.
+- The Firebase web configuration is public by design; Realtime Database rules control access.
 - Services such as Google Safe Browsing and VirusTotal require service-specific terms and credentials stored behind a private backend.
 
 Read the full [Privacy page](https://armaanshashvat2014-dot.github.io/github-protect/privacy/).
@@ -70,4 +70,4 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing changes. For responsibl
 
 ## Version
 
-Web app **6.2.0** · Extension **2.0.0**
+Web app **6.3.0** · Extension **2.0.1**

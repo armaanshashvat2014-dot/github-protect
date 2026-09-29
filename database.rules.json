@@ -1,0 +1,12 @@
+{
+  "rules": {
+    "ratings": {
+      ".indexOn": ["rating"],
+      ".read": "query.orderByChild == 'rating' && query.startAt >= 4 && query.limitToLast <= 20",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['rating', 'message', 'createdAt', 'updatedAt']) && newData.child('rating').isNumber() && newData.child('rating').val() >= 1 && newData.child('rating').val() <= 5 && newData.child('message').isString() && newData.child('message').val().length <= 180 && newData.child('createdAt').isNumber() && newData.child('updatedAt').isNumber()"
+      }
+    }
+  }
+}

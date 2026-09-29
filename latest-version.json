@@ -1,6 +1,6 @@
 {
-  "app": "6.2.3",
+  "app": "6.3.0",
   "extension": "2.0.1",
-  "released": "2026-09-26",
-  "notes": "Fixed an extension false positive that treated GitHub Protector's own Security Guides, Share page and other internal pages as suspicious because github.io resembled github.com. Exact HTTPS pages on the official GitHub Protector origin and /github-protect/ path now navigate normally; external and look-alike domains are still scanned."
+  "released": "2026-09-29",
+  "notes": "Added editable Firebase Realtime Database ratings with anonymous sign-in, live 4–5-star community reviews, privacy-preserving security rules, and device-only fallback when Firebase is unavailable."
 }
